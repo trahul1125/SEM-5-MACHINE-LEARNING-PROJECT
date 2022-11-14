@@ -13,7 +13,7 @@ def add_bg_from_local(image_file):
         f"""
     <style>
     .stApp {{
-        background-image: url(data:image/{"jpg"};base64,{encoded_string.decode()});
+        background-image: url(data:image/{"png"};base64,{encoded_string.decode()});
         background-size: cover
     }}
     </style>
@@ -22,7 +22,8 @@ def add_bg_from_local(image_file):
     )
 
 
-add_bg_from_local("bg.jpg")
+# add_bg_from_local("bg1.jpg")
+add_bg_from_local("bg2.png")
 
 
 teams = [
@@ -69,12 +70,18 @@ cities = [
 ]
 
 pipe = pickle.load(open("pipe.pkl", "rb"))
-st.title("IPL cricket match outcome predictor")
+
+
+# st.title("IPL cricket match outcome predictor")
+st.markdown(
+    f'<h1 style="color:#33ff33;font-size:24px;">{"IPL cricket match outcome predictor"}</h1>',
+    unsafe_allow_html=True,
+)
 
 col1, col2 = st.columns(2)
 
 with col1:
-    batting_team = st.selectbox("Select team on  crease", sorted(teams))
+    batting_team = st.selectbox("Select batting team", sorted(teams))
 with col2:
     bowling_team = st.selectbox("Select fielding team", sorted(teams))
 
@@ -91,7 +98,7 @@ with col4:
 with col5:
     wickets = st.number_input("Wickets taken")
 
-if st.button("Predict Probability"):
+if st.button("Predict"):
     runs_left = target - score
     balls_left = 120 - (overs * 6)
     wickets = 10 - wickets
